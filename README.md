@@ -11,22 +11,30 @@ Dlog 是一个基于本地 MDX 内容的个人博客与作品展示站点。项�
 - next-themes 深色模式
 - gray-matter 与 next-mdx-remote/rsc 本地 MDX 渲染
 - lucide-react 图标
+- pnpm 包管理
+
+## 功能
+
+- 博客：本地 MDX、标签筛选、客户端搜索、阅读时长、文章目录、相关文章、RSS
+- 项目：本地 MDX 精选介绍 + GitHub 仓库同步展示
+- Demo：站内可交互实验（专注计时器、生成式排版、色彩令牌实验室）
+- 站点：深色模式、sitemap、robots、导航当前页高亮
 
 ## 本地开发
 
-需要较新的 Node.js LTS 版本和 npm。
+需要较新的 Node.js LTS 版本和 [pnpm](https://pnpm.io/)。
 
 ```bash
-npm install
+pnpm install
 cp .env.example .env.local
-npm run dev
+pnpm dev
 ```
 
 Windows PowerShell 可使用：
 
 ```powershell
 Copy-Item .env.example .env.local
-npm run dev
+pnpm dev
 ```
 
 打开 <http://localhost:3000> 查看站点。
@@ -34,11 +42,11 @@ npm run dev
 常用命令：
 
 ```bash
-npm run dev        # 启动开发服务器
-npm run build      # 创建生产构建
-npm run start      # 启动生产服务器
-npm run lint       # 执行 ESLint
-npm run typecheck  # 执行 TypeScript 类型检查
+pnpm dev        # 启动开发服务器
+pnpm build      # 创建生产构建
+pnpm start      # 启动生产服务器
+pnpm lint       # 执行 ESLint
+pnpm typecheck  # 执行 TypeScript 类型检查
 ```
 
 ## 环境变量
@@ -53,17 +61,17 @@ npm run typecheck  # 执行 TypeScript 类型检查
 
 ## 内容管理
 
-博客文章和项目介绍均以本地 MDX 文件维护。推荐约定：
+博客文章和精选项目均以本地 MDX 文件维护：
 
 ```text
-src/content/
-├── posts/       # 博客文章
-└── projects/    # 项目介绍
+content/
+├── blog/        # 博客文章
+└── projects/    # 精选项目介绍
 ```
 
-每个 MDX 文件可在文件顶部使用 YAML front matter 描述标题、摘要、发布日期、标签和发布状态；正文由 `next-mdx-remote/rsc` 在服务端渲染，元数据由 `gray-matter` 解析。添加或修改内容后，先运行 `npm run typecheck` 和 `npm run build` 检查结果。
+每个 MDX 文件在顶部使用 YAML front matter 描述元数据；正文由 `next-mdx-remote/rsc` 在服务端渲染。
 
-示例：
+博客文章示例：
 
 ```mdx
 ---
@@ -80,12 +88,37 @@ published: true
 这里是正文。
 ```
 
+精选项目示例：
+
+```mdx
+---
+title: "某项目"
+description: "一句话说明它解决什么问题"
+date: "2025-01-01"
+tags:
+  - Next.js
+published: true
+status: active
+repo: "https://github.com/you/repo"
+---
+
+## 背景
+
+项目正文。
+```
+
+`status` 可选 `active` / `experimental` / `archived`。添加或修改内容后，先运行 `pnpm typecheck` 和 `pnpm build` 检查结果。
+
+## RSS
+
+订阅地址：`/rss.xml`
+
 ## 添加 shadcn/ui 组件
 
 项目已配置 `components.json`，可直接通过 CLI 添加组件：
 
 ```bash
-npx shadcn@latest add button
+pnpm dlx shadcn@latest add button
 ```
 
 组件默认写入 `src/components/ui`，工具函数使用 `@/lib/utils`，全局样式文件为 `src/app/globals.css`。
@@ -95,9 +128,9 @@ npx shadcn@latest add button
 提交或部署前执行：
 
 ```bash
-npm run lint
-npm run typecheck
-npm run build
+pnpm lint
+pnpm typecheck
+pnpm build
 ```
 
 推荐部署到 Vercel：
@@ -110,13 +143,13 @@ npm run build
 也可以使用 Vercel CLI 创建演示部署：
 
 ```bash
-npx vercel
+pnpm dlx vercel
 ```
 
 生成生产部署：
 
 ```bash
-npx vercel --prod
+pnpm dlx vercel --prod
 ```
 
 不要在日志、客户端代码、公开截图或仓库中暴露 `GITHUB_TOKEN`。

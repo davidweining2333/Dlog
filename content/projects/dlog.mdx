@@ -1,0 +1,32 @@
+---
+title: "Dlog 站点"
+description: "基于 Next.js 与本地 MDX 的个人博客与作品集，强调内容优先与可版本管理。"
+date: "2025-01-20"
+tags:
+  - Next.js
+  - MDX
+  - 个人站点
+published: true
+status: active
+repo: "https://github.com/davidweining2333/Dlog"
+homepage: ""
+---
+
+Dlog 是你正在阅读的这个站点。它把“写文章、陈列项目、放可体验 Demo”收束到同一套内容与设计系统里。
+
+## 设计目标
+
+- 内容以文件形式存在，Git 可审计、可回滚；
+- 视觉系统用语义令牌驱动，浅色/深色共用一套结构；
+- 博客、项目、Demo 互相引用，形成知识地图而不是栏目孤岛。
+
+## 实现要点
+
+- **App Router + Server Components**：列表与元数据在服务端完成；
+- **MDX 管线**：front matter 校验、阅读时长、TOC、相关文章均派生自正文；
+- **GitHub 集成**：公开仓库作为项目页的动态补充，本地 MDX 承载精选介绍；
+- **Demo 路由**：站内可玩实验共享主题与导航。
+
+## 后续计划
+
+继续补充文章标签页的深度聚合、RSS 阅读体验，并尝试把更多实验沉淀为可复用组件。若你也在做个人站点，欢迎直接 fork 这套结构，再替换成自己的内容与色板。

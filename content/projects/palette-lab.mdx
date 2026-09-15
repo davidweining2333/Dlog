@@ -1,0 +1,28 @@
+---
+title: "令牌驱动的界面实验集"
+description: "围绕 Design Tokens 的一组小型交互实验：色相生成、语义映射与深浅主题预览。"
+date: "2025-03-18"
+tags:
+  - Design Tokens
+  - 色彩
+  - 实验
+published: true
+status: experimental
+repo: "https://github.com/davidweining2333/Dlog"
+---
+
+这个项目不是单一产品，而是一组用于验证“用途色”假设的交互切片。
+
+## 要回答的问题
+
+- 只调整一个色相，能否推导出可用的 primary / muted / background 组合？
+- 设计师与工程师是否能通过同一组 token 名称讨论差异？
+- 深色主题应当是“反色”，还是另一套独立校准的语义？
+
+## 当前形态
+
+站点内的「色彩令牌实验室」就是其中一块切片：拖动 Hue / Saturation / Lightness，即时查看浅色与深色令牌预览。后续会把导出 CSS Variables、对比度检查器补进来。
+
+## 使用方式
+
+先从真实组件（按钮、卡片、表单）反推最小 token 集，再回头校准色板。避免先做 12 阶色板却不知道每一阶给谁用。

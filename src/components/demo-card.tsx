@@ -1,4 +1,5 @@
 import { Code2, ExternalLink, Rocket } from "lucide-react";
+import Link from "next/link";
 
 import { Badge } from "@/components/ui/badge";
 import { buttonVariants } from "@/components/ui/button";
@@ -18,6 +19,8 @@ export interface DemoCardProps {
 }
 
 export function DemoCard({ demo }: DemoCardProps) {
+  const internal = Boolean(demo.internal && demo.url.startsWith("/"));
+
   return (
     <Card className="group relative flex h-full flex-col overflow-hidden transition-all duration-200 hover:-translate-y-0.5 hover:border-primary/35 hover:shadow-lg">
       <div
@@ -31,20 +34,29 @@ export function DemoCard({ demo }: DemoCardProps) {
           </span>
           <Badge variant="outline" className="max-w-40 truncate bg-background">
             <span className="mr-1.5 size-1.5 shrink-0 rounded-full bg-primary" aria-hidden="true" />
-            {demo.status}
+            {demo.status === "online" ? "可体验" : "制作中"}
           </Badge>
         </div>
         <div className="space-y-2">
           <CardTitle className="text-xl leading-snug">
-            <a
-              href={demo.url}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="decoration-primary/40 underline-offset-4 hover:underline focus-visible:rounded-sm focus-visible:outline-2 focus-visible:outline-offset-4"
-            >
-              {demo.title}
-              <span className="sr-only">（在新标签页打开独立 Demo）</span>
-            </a>
+            {internal ? (
+              <Link
+                href={demo.url}
+                className="decoration-primary/40 underline-offset-4 hover:underline focus-visible:rounded-sm focus-visible:outline-2 focus-visible:outline-offset-4"
+              >
+                {demo.title}
+              </Link>
+            ) : (
+              <a
+                href={demo.url}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="decoration-primary/40 underline-offset-4 hover:underline focus-visible:rounded-sm focus-visible:outline-2 focus-visible:outline-offset-4"
+              >
+                {demo.title}
+                <span className="sr-only">（在新标签页打开独立 Demo）</span>
+              </a>
+            )}
           </CardTitle>
           <CardDescription className="line-clamp-3 leading-relaxed">
             {demo.description}
@@ -65,16 +77,22 @@ export function DemoCard({ demo }: DemoCardProps) {
       </CardContent>
 
       <CardFooter className="flex-col items-stretch gap-2 border-t pt-4 sm:flex-row">
-        <a
-          href={demo.url}
-          target="_blank"
-          rel="noopener noreferrer"
-          className={cn(buttonVariants({ size: "default" }), "sm:flex-1")}
-        >
-          打开 Demo
-          <ExternalLink className="size-4" aria-hidden="true" />
-          <span className="sr-only">（在新标签页打开独立站点）</span>
-        </a>
+        {internal ? (
+          <Link href={demo.url} className={cn(buttonVariants({ size: "default" }), "sm:flex-1")}>
+            立即体验
+          </Link>
+        ) : (
+          <a
+            href={demo.url}
+            target="_blank"
+            rel="noopener noreferrer"
+            className={cn(buttonVariants({ size: "default" }), "sm:flex-1")}
+          >
+            打开 Demo
+            <ExternalLink className="size-4" aria-hidden="true" />
+            <span className="sr-only">（在新标签页打开独立站点）</span>
+          </a>
+        )}
         {demo.repository ? (
           <a
             href={demo.repository}

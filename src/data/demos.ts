@@ -1,28 +1,31 @@
 import type { Demo } from "@/lib/types";
 
-// 示例链接使用 example.com 占位，请替换为你自己的线上地址与仓库地址。
 export const demos: Demo[] = [
   {
-    title: "交互式数据看板",
-    description: "将复杂指标整理为清晰、响应迅速的可视化工作台。",
-    url: "https://example.com/demos/dashboard",
-    repository: "https://example.com/repositories/dashboard",
-    tags: ["Next.js", "TypeScript", "Data Viz"],
-    status: "online",
-  },
-  {
+    slug: "focus-timer",
     title: "专注计时器",
-    description: "一个强调键盘操作与低干扰体验的番茄钟实验。",
-    url: "https://example.com/demos/focus-timer",
-    repository: "https://example.com/repositories/focus-timer",
-    tags: ["React", "Web Audio", "PWA"],
+    description: "强调键盘操作与低干扰体验的番茄钟：可调时长、白噪音提示与会话统计。",
+    url: "/demos/focus-timer",
+    internal: true,
+    tags: ["React", "State", "PWA 思路"],
     status: "online",
   },
   {
+    slug: "generative-type",
     title: "生成式排版实验",
-    description: "探索网格、字体变量与动态内容之间关系的创意编码项目。",
-    url: "https://example.com/demos/generative-type",
+    description: "探索网格、字符密度与动态扰动之间关系的 Canvas 创意编码小品。",
+    url: "/demos/generative-type",
+    internal: true,
     tags: ["Canvas", "Typography", "Creative Coding"],
-    status: "wip",
+    status: "online",
+  },
+  {
+    slug: "palette-lab",
+    title: "色彩令牌实验室",
+    description: "拖动色相与明度，实时生成设计令牌，并预览语义色在浅色/深色下的表现。",
+    url: "/demos/palette-lab",
+    internal: true,
+    tags: ["Design Tokens", "Color", "UI"],
+    status: "online",
   },
 ];

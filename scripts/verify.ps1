@@ -5,12 +5,12 @@ $fnm = Get-Command fnm -ErrorAction Stop
 (& $fnm.Source env --shell powershell | Out-String) | Invoke-Expression
 
 Write-Host "Node $(node --version)"
-Write-Host "npm $(npm.cmd --version)"
-npm.cmd install
+Write-Host "pnpm $(pnpm --version)"
+pnpm install
 if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
-npm.cmd run typecheck
+pnpm run typecheck
 if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
-npm.cmd run lint
+pnpm run lint
 if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
-npm.cmd run build
+pnpm run build
 exit $LASTEXITCODE

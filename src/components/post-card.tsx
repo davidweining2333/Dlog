@@ -47,6 +47,8 @@ export function PostCard({ post }: PostCardProps) {
             <CalendarDays className="size-3.5" aria-hidden="true" />
             <time dateTime={post.date}>{formatDate(post.date)}</time>
           </span>
+          <span aria-hidden="true">·</span>
+          <span>约 {post.readingMinutes} 分钟</span>
           {!post.published ? <Badge variant="outline">草稿</Badge> : null}
         </div>
         <CardTitle className="text-xl leading-snug">
@@ -66,9 +68,11 @@ export function PostCard({ post }: PostCardProps) {
         {post.tags.length > 0 ? (
           <div className="flex flex-wrap gap-2" aria-label="文章标签">
             {post.tags.map((tag) => (
-              <Badge key={tag} variant="secondary" className="font-normal">
-                {tag}
-              </Badge>
+              <Link key={tag} href={`/blog/tags/${tag}`}>
+                <Badge variant="secondary" className="font-normal transition-colors hover:bg-accent">
+                  {tag}
+                </Badge>
+              </Link>
             ))}
           </div>
         ) : null}

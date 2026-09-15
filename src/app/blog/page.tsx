@@ -1,8 +1,8 @@
 import type { Metadata } from "next";
 
-import { PostCard } from "@/components/post-card";
+import { BlogExplorer } from "@/components/blog-explorer";
 import { Badge } from "@/components/ui/badge";
-import { getAllPosts } from "@/lib/content";
+import { getAllPosts, getAllTags } from "@/lib/content";
 
 export const metadata: Metadata = {
   title: "文章",
@@ -11,6 +11,7 @@ export const metadata: Metadata = {
 
 export default function BlogPage() {
   const posts = getAllPosts();
+  const tags = getAllTags();
 
   return (
     <div className="mx-auto max-w-6xl px-4 py-14 sm:px-6 sm:py-20">
@@ -23,9 +24,7 @@ export default function BlogPage() {
       </header>
 
       {posts.length > 0 ? (
-        <div className="mt-12 grid gap-6 md:grid-cols-2 lg:grid-cols-3">
-          {posts.map((post) => <PostCard key={post.slug} post={post} />)}
-        </div>
+        <BlogExplorer posts={posts} tags={tags} />
       ) : (
         <div className="mt-12 rounded-2xl border border-dashed px-6 py-16 text-center text-muted-foreground">
           还没有公开文章，第一篇正在准备中。

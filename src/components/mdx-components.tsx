@@ -1,28 +1,64 @@
 import type { MDXComponents } from "mdx/types";
 
+import { createHeadingSlugger } from "@/lib/slug";
 import { cn } from "@/lib/utils";
 
+const slugify = createHeadingSlugger();
+
+function extractText(node: React.ReactNode): string {
+  if (typeof node === "string" || typeof node === "number") {
+    return String(node);
+  }
+  if (Array.isArray(node)) {
+    return node.map(extractText).join("");
+  }
+  if (node && typeof node === "object" && "props" in node) {
+    const props = node.props as { children?: React.ReactNode };
+    return extractText(props.children);
+  }
+  return "";
+}
+
+function headingId(children: React.ReactNode): string {
+  return slugify(extractText(children));
+}
+
 export const mdxComponents: MDXComponents = {
-  h1: ({ className, ...props }) => (
+  h1: ({ className, children, ...props }) => (
     <h1
+      id={headingId(children)}
       className={cn("scroll-m-20 text-4xl font-bold tracking-tight text-balance sm:text-5xl", className)}
       {...props}
-    />
+    >
+      {children}
+    </h1>
   ),
-  h2: ({ className, ...props }) => (
+  h2: ({ className, children, ...props }) => (
     <h2
+      id={headingId(children)}
       className={cn("scroll-m-20 border-b pb-2 text-3xl font-semibold tracking-tight first:mt-0", className)}
       {...props}
-    />
+    >
+      {children}
+    </h2>
   ),
-  h3: ({ className, ...props }) => (
+  h3: ({ className, children, ...props }) => (
     <h3
+      id={headingId(children)}
       className={cn("scroll-m-20 text-2xl font-semibold tracking-tight", className)}
       {...props}
-    />
+    >
+      {children}
+    </h3>
   ),
-  h4: ({ className, ...props }) => (
-    <h4 className={cn("scroll-m-20 text-xl font-semibold tracking-tight", className)} {...props} />
+  h4: ({ className, children, ...props }) => (
+    <h4
+      id={headingId(children)}
+      className={cn("scroll-m-20 text-xl font-semibold tracking-tight", className)}
+      {...props}
+    >
+      {children}
+    </h4>
   ),
   p: ({ className, ...props }) => (
     <p className={cn("leading-7 not-first:mt-6", className)} {...props} />
